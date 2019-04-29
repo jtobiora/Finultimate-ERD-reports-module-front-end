@@ -1,0 +1,123 @@
+<div *ngIf="false && salesReportItems && salesReportItems.length > 0">
+  <div class="white-box">
+    <div class="table-responsive">
+      <table id="datatable" class="table table-striped display nowrap" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th style="width:200px;">Date</th>
+            <th *ngFor="let title of getReportTitles()">{{title}}</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th style="width:200px;">Summary</th>
+            <th *ngFor="let item of getSummary() let i=index;">
+              <span *ngIf="!item.currency && !item.percentage">{{item.summary === 0 ? 0 : item.summary}}</span>
+              <span *ngIf="item.currency">{{item.summary === 0 ? 0 : item.summary | ncurrency}}</span>
+              <span *ngIf="item.percentage">{{item.summary === 0 ? 0 : item.summary | percentage}}</span>
+            </th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr *ngFor="let reportItem of salesReportItems;">
+            <td style="padding-left:10px;">{{reportItem.dateTitle}}</td>
+            <td *ngFor="let item of reportItem.reportItems;">
+              <span *ngIf="!item.currency && !item.percentage">{{item.doubleValue || item.doubleValue === 0 ? item.doubleValue : item.value}}</span>
+              <span *ngIf="item.currency">{{(item.doubleValue? item.doubleValue : item.value) | ncurrency}}</span>
+              <span *ngIf="item.percentage">{{(item.doubleValue ? item.doubleValue : item.value) | percentage}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="salesReportItems && salesReportItems.length > 0">
+  <div class="white-box">
+    <div class="table-responsive">
+      <table id="datatable2" class="table table-striped display nowrap" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th style="width:200px;"></th>
+            <th *ngFor="let reportItem of salesReportItems;">{{reportItem['dateTitle']}}</th>
+            <th [attr.colspan]="salesReportItems[0].reportItems.length"> Totals By Summary </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of salesReportItems[0].reportItems; let i = index;">
+            <td style="padding-left:10px;">{{item['title']}}</td>
+            <td *ngFor="let reportItem of salesReportItems; let j = index;">
+              <span *ngIf="reportItem.reportItems[i]!==null && !reportItem.reportItems[i].currency && !reportItem.reportItems[i].percentage">{{reportItem.reportItems[i].value || reportItem.reportItems[i].value === 0 ? reportItem.reportItems[i].value : reportItem.reportItems[i].value}}</span>
+              <span *ngIf="reportItem.reportItems[i]!==null && reportItem.reportItems[i].currency">{{(reportItem.reportItems[i].value? reportItem.reportItems[i].value : reportItem.reportItems[i].value) | ncurrency}}</span>
+              <span *ngIf="reportItem.reportItems[i]!==null && reportItem.reportItems[i].percentage">{{(reportItem.reportItems[i].value ? reportItem.reportItems[i].value : reportItem.reportItems[i].value) | percentage}}</span>
+            </td>
+            <td style="font-weight: bold;">
+              <span *ngIf="!getSummary()[i].currency && !getSummary()[i].percentage">{{getSummary()[i].summary === 0 ? 0 : getSummary()[i].summary}}</span>
+              <span *ngIf="getSummary()[i].currency">{{getSummary()[i].summary === 0 ? 0 : getSummary()[i].summary | ncurrency}}</span>
+              <span *ngIf="getSummary()[i].percentage">{{getSummary()[i].summary === 0 ? 0 : getSummary()[i].summary | percentage}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showProducts && productReportItems && productReportItems.length > 0">
+  <div class="white-box">
+    <div class="table-responsive">
+      <table id="datatable4" class="table table-striped display nowrap" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+          <th style="width:200px;"> </th>
+          <!--<th *ngFor="let title of getReportTitles()">{{title}}</th>-->
+          <th *ngFor="let reportItem of productReportItems">{{reportItem['dateTitle']}}</th>
+          <th><strong>Cost of Goods</strong></th>
+          <th><strong>Revenue</strong></th>
+          <th><strong>Gross Profit</strong></th>
+          <th><strong>Margin</strong></th>
+          <th><strong>Tax</strong></th>
+          <th><strong>Total Products</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of productReportItems[0].reportItems; let i = index;">
+          <td style="padding-left:10px;">{{item['title']}}</td>
+          <td *ngFor="let reportItem of productReportItems; let j = index;">
+            <span *ngIf="reportItem.reportItems[i]!==null && !reportItem.reportItems[i].currency && !reportItem.reportItems[i].percentage">{{reportItem.reportItems[i].value || reportItem.reportItems[i].value === 0 ? reportItem.reportItems[i].value : reportItem.reportItems[i].value}}</span>
+            <span *ngIf="reportItem.reportItems[i]!==null && reportItem.reportItems[i].currency">{{(reportItem.reportItems[i].value ? reportItem.reportItems[i].value : reportItem.reportItems[i].value) | ncurrency}}</span>
+            <span *ngIf="reportItem.reportItems[i]!==null && reportItem.reportItems[i].percentage">{{(reportItem.reportItems[i].value ? reportItem.reportItems[i].value : reportItem.reportItems[i].value) | percentage}}</span>
+          </td>
+          <td>
+            {{getProductDetails(item['title'], 'Cost of Goods') | ncurrency}}
+          </td>
+          <td>
+            {{getProductDetails(item['title'], 'Revenue') | ncurrency}}
+          </td>
+          <td>
+            {{getProductDetails(item['title'], 'Gross Profit') | ncurrency}}
+          </td>
+          <td>
+            {{getProductDetails(item['title'], 'Margin') | percentage}}
+          </td>
+          <td>
+            {{getProductDetails(item['title'], 'Tax') | ncurrency}}
+          </td>
+
+          <td><strong>{{getParticularProductSummary(i)}}</strong></td>
+        </tr>
+        <tr style="">
+          <td><strong>Total Quantity</strong></td>
+          <td *ngFor="let item of productReportItems; let i = index">
+            <strong>{{getItemSummary(i)}}</strong>
+          </td>
+          <td colspan="6"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

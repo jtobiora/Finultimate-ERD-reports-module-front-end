@@ -1,0 +1,571 @@
+<!-- Preloader -->
+<div class="preloader">
+  <div class="cssload-speeding-wheel"></div>
+</div>
+<div id="wrapper">
+  <!-- Top Navigation -->
+  <nav class="navbar navbar-default navbar-static-top m-b-0">
+    <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+      <!-- <div class="top-left-part"><a class="logo" href="index.html"><b><img src="../assets/plugins/images/eliteadmin-logo.png" alt="home" /></b><span class="hidden-xs"><strong>S3</strong>Reports</span></a></div> -->
+     <div class="top-left-part"><a class="logo" href="index.html"><b><img [src]="logo" alt="home" width="50" height="50"/></b><span class="hidden-xs"><strong>S3</strong>Reports</span></a></div>
+
+      <div class="pull-right" style="padding: 20px 20px 0 0; color:#fff; font-weight: bold;">{{tenantName}}</div>
+
+    </div>
+    <!-- /.navbar-header -->
+    <!-- /.navbar-top-links -->
+    <!-- /.navbar-static-side -->
+  </nav>
+  <!-- End Top Navigation -->
+  <!-- Left navbar-header -->
+  <div class="navbar-default sidebar" role="navigation">
+
+    <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+
+      <ul class="nav" id="side-menu">
+
+        <li class="sidebar-search hidden-sm hidden-md hidden-lg">
+          <!-- input-group -->
+          <div class="input-group custom-search-form">
+            <input type="text" class="form-control" placeholder="Search..."> <span class="input-group-btn">
+            <button class="btn btn-default" type="button"> <i class="fa fa-search"></i> </button>
+            </span> </div>
+          <!-- /input-group -->
+        </li>
+    
+        <li><a href="index.html" class="waves-effect"><i class="linea-icon linea-basic fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard </span></a></li>
+
+        <li> <a href="sales-report/summary" class="waves-effect"><i data-icon="Z" class="linea-icon linea-ecommerce fa-fw"></i> <span class="hide-menu">POS Sales Report</span></a></li>
+        <li> <a href="sales-report-cluster/summary" class="waves-effect"><i data-icon="Z" class="linea-icon linea-ecommerce fa-fw"></i> <span class="hide-menu">Sales Report</span></a></li>
+        <li> <a href="inventory-report" class="waves-effect"><i data-icon="b" class="linea-icon linea-ecommerce fa-fw" (click) ="wait()"></i> <span class="hide-menu">Inventory Report</span></a></li>
+        <li> <a href="vendors-report" class="waves-effect"><i data-icon="A" class="linea-icon linea-ecommerce fa-fw" (click) ="wait()"></i> <span class="hide-menu">Vendors Report</span></a></li>
+        <li><a href="logout" class="waves-effect"><i class="icon-logout fa-fw"></i> <span class="hide-menu">Log Out</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- Left navbar-header end -->
+  <!-- Page Content -->
+  <div id="page-wrapper">
+    <div class="container-fluid">
+      <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h4 class="page-title">Reports</h4>
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="#">{{userName}}</a></li>
+          </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+      </div>
+
+      <!-- /#DYNAMIC SECTION -->
+   <div class="white-box" style="min-height:13px;">
+  <h1 class="">POS Sales Report</h1>
+  <div class="panel" id="report-panel">
+    <div class="panel-body" style="padding-left:0; padding-right:0;">
+      <form role="form">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label">Report Type</label>
+            <div class="dropdown">
+              <button class="btn btn-default round-corner" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 90%; text-align:left;">
+                <span style="display:inline-block; padding:8px 8px 8px 8px;">{{reportType}}</span>
+                <i class="fa fa-fw dd-icon fa-caret-down"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="min-width:200px;">
+                <li><a (click)="selectReport('Sales Summary')">Sales Summary</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a (click)="selectReport('User')">User</a></li>
+                <li><a (click)="selectReport('Customer')">Customer</a></li>
+                <li><a (click)="selectReport('Outlet')">Outlet</a></li>
+                <li><a (click)="selectReport('Register')" *ngIf="false">Register</a></li>
+                <li><a (click)="selectReport('Product')" *ngIf="false">Product</a></li>
+                <li><a (click)="selectReport('Customer Group')" *ngIf="false">Customer Group</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a (click)="selectReport('Product')" *ngIf="false">Product</a></li>
+                <li><a (click)="selectReport('Brand')" *ngIf="false">Brand</a></li>
+                <li><a (click)="selectReport('Supplier')" *ngIf="false">Supplier</a></li>
+                <li><a (click)="selectReport('Product type')" *ngIf="false">Product type</a></li>
+                <li><a (click)="selectReport('Tag')" *ngIf="false">Tag</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <label class="control-label">Measure</label>
+            <div class="dropdown">
+              <button class="btn btn-default round-corner" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 90%; text-align:left;">
+                <span style="display:inline-block; padding:8px 8px 8px 8px;">{{measure}}</span>
+                <i class="fa fa-fw dd-icon fa-caret-down"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a (click)="selectMeasure('Basket Size', 'basket-size')">Basket Size</a></li>
+                <li><a (click)="selectMeasure('Basket Value', 'basket-value')">Basket Value</a></li>
+                <li *ngIf="false"><a (click)="selectMeasure('Basket Value (tax incl)')">Basket Value (tax incl)</a></li>
+                <li><a (click)="selectMeasure('Cost of Goods', 'cost-of-goods')">Cost of Goods</a></li>
+                <li><a (click)="selectMeasure('Customer Count', 'customer-count')">Customer Count</a></li>
+                <li><a (click)="selectMeasure('Discount', 'discount')">Discount</a></li>
+                <li *ngIf="false"><a (click)="selectMeasure('Discount %')">Discount %</a></li>
+                <li *ngIf="false"><a (click)="selectMeasure('First Sale')">First Sale</a></li>
+                <li><a (click)="selectMeasure('Gross Profit', 'gross-profit')">Gross Profit</a></li>
+                <li><a (click)="selectMeasure('Item Sold', 'items-sold')">Item Sold</a></li>
+                <li *ngIf="false"><a (click)="selectMeasure('Last Sale')">Last Sale</a></li>
+                <li><a (click)="selectMeasure('Margin', 'margin')">Margin</a></li>
+                <li><a (click)="selectMeasure('Revenue', 'revenue')">Revenue</a></li>
+                <li><a (click)="selectMeasure('Return Count', 'refund')">Return Count</a></li>
+                <li><a (click)="selectMeasure('Tax %', 'tax')">Tax %</a></li>
+                <li><a (click)="selectMeasure('Transaction Count', 'transaction-count')">Transaction Count</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="control-label">Frequency</label>
+            <div class="dropdown">
+              <button class="btn btn-default round-corner" type="button" id="dropdownMenu2x" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 90%; text-align:left;">
+                <!-- Load Frequency Here -->
+                <span style="display:inline-block; padding:8px 8px 8px 8px;">{{message}}</span>
+                <i class="fa fa-fw dd-icon fa-caret-down"></i>
+                <!-- End of frequency details -->
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li>
+                  <div style="width:470px; min-height:300px; border-radius: 0 0 9px 9px;">
+                    <div class="navRow row" style="margin:5px;">
+                      <div class="col-md-4" style="min-height:300px;">
+                        <ul class="frequency-list">
+                          <li><label for="hour"><input type="radio" id="hour" [(ngModel)]="frequency" name="frequency" value="Hour"> Hour</label></li>
+                          <li><label for="hourly"><input type="radio" id="hourly" [(ngModel)]="frequency" name="frequency" value="Hourly"> Hourly</label></li>
+                          <li><label for="day"><input type="radio" id="day" [(ngModel)]="frequency" name="frequency" value="Day"> Day</label></li>
+                          <li><label for="daily"><input type="radio" id="daily" [(ngModel)]="frequency" name="frequency" value="Daily"> Daily</label></li>
+                          <li *ngIf="false"><label for="week"><input type="radio" id="week" [(ngModel)]="frequency" name="frequency" value="Week"> Week</label></li>
+                          <li *ngIf="false"><label for="weekly"><input type="radio" id="weekly" [(ngModel)]="frequency" name="frequency" value="Weekly"> Weekly</label></li>
+                          <li><label for="month"><input type="radio" id="month" [(ngModel)]="frequency" name="frequency" value="Month"> Month</label></li>
+                          <li><label for="monthly"><input type="radio" id="monthly" [(ngModel)]="frequency" name="frequency" value="Monthly"> Monthly</label></li>
+                          <li><label for="year"><input type="radio" id="year" [(ngModel)]="frequency" name="frequency" value="Year"> Year</label></li>
+                          <li><label for="yearly"><input type="radio" id="yearly" [(ngModel)]="frequency" name="frequency" value="Yearly"> Yearly</label></li>
+                        </ul>
+                      </div>
+                      <div class="col-md-8" style="background:#fff; min-height:300px; padding:0 10px;">
+
+                        <!--Hour Selection-->
+                        <div *ngIf="frequency === 'Hour'">
+                          <fieldset>
+                            <legend>Hour</legend>
+                            <date-input [(ngModel)]="reportDay" [label]="'Day'" name="reportDay" (change)="dateSelected()"></date-input>
+                            <time-input [(ngModel)]="reportHour" [day]="reportDay" [label]="'Hour'" name="reportHour" (change)="dateSelected()"></time-input>
+                          </fieldset>
+                        </div>
+
+
+                        <!--Hourly Selection-->
+                        <div *ngIf="frequency === 'Hourly'">
+                          <fieldset>
+                            <legend>Start</legend>
+                            <date-input [(ngModel)]="reportStartDay" [start]="true" [label]="'Day'" name="reportStartDay"></date-input>
+                            <time-input [(ngModel)]="reportStartHour" [day]="reportStartDay" [label]="'Hour'" name="reportStartHour"></time-input>
+                          </fieldset>
+                          <br>
+                          <fieldset>
+                            <legend>End</legend>
+                            <date-input [(ngModel)]="reportEndDay" [label]="'Day'" name="reportEndDay"></date-input>
+                            <time-input [(ngModel)]="reportEndHour" [day]="reportEndDay" [label]="'Hour'" name="reportEndHour"></time-input>
+                          </fieldset>
+                        </div>
+
+
+                        <!--Day Selection-->
+                        <div *ngIf="frequency === 'Day'">
+                          <fieldset>
+                            <legend>Day</legend>
+                            <date-input [(ngModel)]="reportDay" [label]="'Day'" name="reportDay"></date-input>
+                          </fieldset>
+                        </div>
+
+
+                        <!--Daily Selection-->
+                        <div *ngIf="frequency === 'Daily'">
+                          <fieldset>
+                            <legend>Start</legend>
+                            <date-input [(ngModel)]="reportStartDay" [start]="true" [label]="'Day'" name="reportStartDay"></date-input>
+                          </fieldset>
+                          <br>
+                          <fieldset>
+                            <legend>End</legend>
+                            <date-input [(ngModel)]="reportEndDay" [end]="true" [label]="'Day'" name="reportEndDay"></date-input>
+                          </fieldset>
+                        </div>
+
+
+                        <!--Week Selection-->
+                        <div *ngIf="frequency === 'Week'">
+                          <fieldset>
+                            <legend>Week</legend>
+                            <date-input [(ngModel)]="reportDay" [label]="'Week'" name="reportDay"></date-input>
+                          </fieldset>
+                        </div>
+                        <!--Weekly Selection-->
+                        <div *ngIf="frequency === 'Weekly'">
+                          <fieldset>
+                            <legend>Start</legend>
+                            <date-input [(ngModel)]="reportStartWeek" [start]="true" [label]="'Week'" name="reportStartDay"></date-input>
+                          </fieldset>
+                          <br>
+                          <fieldset>
+                            <legend>End</legend>
+                            <date-input [(ngModel)]="reportEndWeek" [end]="true" [label]="'Week'" name="reportEndDay"></date-input>
+                          </fieldset>
+                        </div>
+
+
+                        <!--Month Selection-->
+                        <div *ngIf="frequency === 'Month'">
+                          <fieldset>
+                            <legend>Month</legend>
+                            <!--<date-input [(ngModel)]="reportMonth" [label]="'Month'" name="reportMonth"></date-input>-->
+                            <div class="row" style="margin: 0;">
+                              <div class="col-md-6">
+                                <label class="control-label">Year</label>
+                                <div>
+                                  <select name="monthReportStartYear" [(ngModel)]="reportYear" (change)="dateSelected()">
+                                    <option disabled value="">Select Year</option>
+                                    <option *ngFor="let year of years; let i = index;" [value]="year">{{year}}</option>
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <label class="control-label">Month</label>
+                                <div>
+                                  <select name="monthReportStartMonth" [(ngModel)]="reportMonth" (change)="dateSelected()">
+                                    <option disabled value="">Select Month</option>
+                                    <option *ngFor="let month of months; let i = index;" [value]="i">{{monthNames[i]}}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </div>
+                        <!--Monthly Selection-->
+                        <div *ngIf="frequency === 'Monthly'">
+                          <fieldset>
+                            <legend>Start</legend>
+                            <!--<date-input [(ngModel)]="reportStartMonth" [start]="true" [label]="'Month'" name="reportStartMonth"></date-input>-->
+                            <div class="row" style="margin: 0;">
+                              <div class="col-md-6">
+                                <label class="control-label">Year</label>
+                                <div>
+                                  <select name="monthlyReportStartYear" [(ngModel)]="reportStartYear" (change)="dateSelected()">
+                                    <option disabled value="">Select Year</option>
+                                    <option *ngFor="let year of years; let i = index;">{{year}}</option>
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <label class="control-label">Month</label>
+                                <div>
+                                  <select name="monthlyReportStartMonth" [(ngModel)]="reportStartMonth" (change)="dateSelected()">
+                                    <option disabled value="">Select Month</option>
+                                    <option *ngFor="let month of months; let i = index;" [value]="i">{{monthNames[i]}}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </fieldset>
+                          <br>
+                          <fieldset>
+                            <legend>End</legend>
+                            <!--<date-input [(ngModel)]="reportEndMonth" [end]="true" [label]="'Month'" name="reportEndMonth"></date-input>-->
+                            <div class="row" style="margin: 0;">
+                              <div class="col-md-6">
+                                <label class="control-label">Year</label>
+                                <div>
+                                  <select name="monthlyReportEndYear" [(ngModel)]="reportEndYear" (change)="dateSelected()">
+                                    <option disabled value="">Select Year</option>
+                                    <option *ngFor="let year of years; let i = index;">{{year}}</option>
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <label class="control-label">Month</label>
+                                <div>
+                                  <select name="monthlyReportEndMonth" [(ngModel)]="reportEndMonth" (change)="dateSelected()">
+                                    <option disabled value="">Select Month</option>
+                                    <option *ngFor="let month of months; let i = index;" [value]="i">{{monthNames[i]}}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </div>
+
+
+                        <!--Year Selection-->
+                        <div *ngIf="frequency === 'Year'">
+                          <fieldset>
+                            <legend>Year</legend>
+                            <div>
+                              <label class="control-label">Year</label>
+                              <div>
+                                <select name="year" [(ngModel)]="reportYear" (change)="dateSelected()">
+                                  <option disabled value="">Select Year</option>
+                                  <option *ngFor="let year of years; let i = index;">{{year}}</option>
+                                </select>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </div>
+                        <!--Yearly Selection-->
+                        <div *ngIf="frequency === 'Yearly'">
+
+                          <fieldset>
+                            <legend>Start</legend>
+                            <div>
+                                <label class="control-label">Year</label>
+                                <div>
+                                  <select name="year" [(ngModel)]="reportStartYear" (change)="dateSelected()">
+                                    <option disabled value="">Select Year</option>
+                                    <option *ngFor="let year of years; let i = index;">{{year}}</option>
+                                  </select>
+                                </div>
+                            </div>
+                          </fieldset>
+                          <br>
+                          <fieldset>
+                            <legend>End</legend>
+                            <div>
+                              <label class="control-label">Year</label>
+                              <div>
+                                <select name="year" [(ngModel)]="reportEndYear" (change)="dateSelected()">
+                                  <option disabled value="">Select Year</option>
+                                  <option *ngFor="let year of years; let i = index;">{{year}}</option>
+                                </select>
+                              </div>
+                            </div>
+                          </fieldset>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div style="clear:both; padding:15px; font-weight:bold; background:#ccc; margin-top:10px; margin-bottom:-18px; border-radius: 0 0 8px 8px;">
+                      <div class="row" style="margin: 0;">
+                        <div class="col-md-10">
+                          <h5>{{message}}</h5>
+                        </div>
+                        <div class="col-md-2" style="text-align:center">
+                          <button class="btn btn-primary" style="padding: 10px;" (click)="printReportDate()">Apply</button>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-2" *ngIf="false">
+            <label class="control-label">Start Date</label>
+            <div *ngIf="false" class="dropdown">
+              <button class="btn btn-default round-corner" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 90%; text-align:left;">
+                <span style="display:inline-block; padding:8px 8px 8px 8px;">Date Range</span>
+                <i class="fa fa-fw dd-icon fa-caret-down"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="padding: 0;">
+                <li>
+                  <div style="width:600px; min-height:300px; background:#fff;">
+                    <ul class="tab-head">
+                      <li class="half l-align" (click)="setFrequencyType($event, 'Compare Dates', 1)" [ngClass]="{'active':frequencyType === 'Compare Dates'}" >Compare Dates</li>
+                      <li class="half l-align" (click)="setFrequencyType($event, 'Date Range', 2)"  [ngClass]="{'active':frequencyType === 'Date Range'}" >Date Range</li>
+                    </ul>
+
+                    <div *ngIf="d_top_selection === 1">
+                      <ul class="tab-head">
+                        <li *ngIf="false" class="half ftab" [ngClass]="{'active':frequency === 'Year'}" (click)="setFrequency($event, 'Year')">Year</li>
+                        <li *ngIf="false" class="half ftab" [ngClass]="{'active':frequency === 'Quarter'}" (click)="setFrequency($event, 'Quarter')">Quarter</li>
+                        <li class="half ftab" [ngClass]="{'active':frequency === 'Month'}" (click)="setFrequency($event, 'Month')">Month</li>
+                        <li class="half ftab" [ngClass]="{'active':frequency === 'Week'}" (click)="setFrequency($event, 'Week')">Week</li>
+                        <li class="half ftab" [ngClass]="{'active':frequency === 'Day'}" (click)="setFrequency($event, 'Day')">Day</li>
+                      </ul>
+                    </div>
+
+                    <!--Year Frequency Options -->
+                    <div style="padding:10px; width:100%; clear:both;"  *ngIf="d_top_selection === 1 && frequency === 'Month'">
+                      <ul class="icheck-list" (click)="prevent($event)">
+                        <li>
+                          <input type="radio" class="check" id="flat-radio-1" name="flat-radio" data-radio="iradio_flat-red">
+                          <label for="flat-radio-1">Year to date</label>
+                        </li>
+                        <li>
+                          <input type="radio" class="check" id="flat-radio-2" name="flat-radio" checked data-radio="iradio_flat-red">
+                          <label for="flat-radio-2">Previous year</label>
+                        </li>
+                        <li>
+                          <input type="radio" class="check" id="flat-radio-3" name="flat-radio" data-radio="iradio_flat-red">
+                          <label for="flat-radio-1">Last <input type="text" style="width:40px; display: inline-block;"> years</label>
+                        </li>
+                        <li>
+                          <input type="radio" class="check" id="flat-radio-4" name="flat-radio" checked data-radio="iradio_flat-red">
+                          <label for="flat-radio-1">
+                            <input type="text" style="width:40px; display: inline-block;"> years from
+                            <select>
+                              <option>2017</option>
+                              <option>2016</option>
+                              <option>2015</option>
+                              <option>2014</option>
+                            </select>
+                          </label>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <!--Quarter Frequency Options -->
+                    <div style="padding:10px; width:100%; clear:both;"  *ngIf="d_top_selection === 1 && frequency === 'Week'">
+                      <ul class="icheck-list" (click)="prevent($event)">
+                        <li>
+                          <input type="radio" class="check" id="qflat-radio-1" name="flat-radio" data-radio="iradio_flat-red">
+                          <label for="flat-radio-1">Quarter to date</label>
+                        </li>
+                        <li>
+                          <input type="radio" class="check" id="qflat-radio-2" name="flat-radio" checked data-radio="iradio_flat-red">
+                          <label for="flat-radio-2">Previous quarter</label>
+                        </li>
+                        <li>
+                          <input type="radio" class="check" id="qflat-radio-3" name="flat-radio" data-radio="iradio_flat-red">
+                          <label for="flat-radio-1">Last <input type="text" style="width:40px; display: inline-block;"> quarters</label>
+                        </li>
+                        <li>
+                          <input type="radio" class="check" id="qflat-radio-4" name="flat-radio" checked data-radio="iradio_flat-red">
+                          <label for="flat-radio-1">
+                            <input type="text" style="width:40px; display: inline-block;"> quarters from
+                            <select>
+                              <option>2017</option>
+                              <option>2016</option>
+                              <option>2015</option>
+                              <option>2014</option>
+                            </select>
+                          </label>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <!--Year Frequency Options -->
+                    <div style="padding:10px; width:100%; clear:both;"  *ngIf="d_top_selection === 1 && frequency === 'Day'">
+                      <ul class="icheck-list" (click)="prevent($event)">
+                        <li>
+                          <input type="radio" class="check" id="mflat-radio-1" name="flat-radio" data-radio="iradio_flat-red">
+                          <label for="flat-radio-1">Month to date</label>
+                        </li>
+                        <li>
+                          <input type="radio" class="check" id="mflat-radio-2" name="flat-radio" checked data-radio="iradio_flat-red">
+                          <label for="flat-radio-2">Previous month</label>
+                        </li>
+                        <li>
+                          <input type="radio" class="check" id="mflat-radio-3" name="flat-radio" data-radio="iradio_flat-red">
+                          <label for="flat-radio-1">Last <input type="text" style="width:40px; display: inline-block;"> years</label>
+                        </li>
+                        <li>
+                          <input type="radio" class="check" id="mflat-radio-4" name="flat-radio" checked data-radio="iradio_flat-red">
+                          <label for="flat-radio-1">
+                            <input type="text" style="width:40px; display: inline-block;"> years from
+                            <select>
+                              <option>2017</option>
+                              <option>2016</option>
+                              <option>2015</option>
+                              <option>2014</option>
+                            </select>
+                          </label>
+                        </li>
+                      </ul>
+                    </div>
+
+
+                    <div style="min-height:364px;" *ngIf="d_top_selection === 2">
+                      <div class="form-group">
+                        <label class="col-xs-3 control-label">Start Date</label>
+                        <div class="col-xs-5">
+                          <input type="date" class="form-control" name="sDate" title="start date" id="sDate" [(ngModel)]="startDate"/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-xs-3 control-label">End Date</label>
+                        <div class="col-xs-5">
+                          <input type="date" class="form-control" name="eDate" title="end date" id="eDate" [(ngModel)]="endDate"/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="padding:10px; font-size:16px; clear: both; border-top:solid 1px #e1e1e1;">
+                      <div class="row">
+                        <div class="col-md-9" style="padding-top:13px;">{{startDate | date:'mediumDate'}} - {{endDate | date:'longDate'}}</div>
+                        <div class="col-md-3">
+                          <button class="btn btn-primary" style="padding:14px; text-align:center; width:100%;" (click)="generateReport()">Apply</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <input type="text" class="start_datepicker" [(ngModel)]="startDate" name="start_date">
+            </div>
+          </div>
+
+          <div class="col-md-2" *ngIf="false">
+            <label class="control-label">End Date</label>
+            <div>
+              <input type="text" class="end_datepicker" [(ngModel)]="endDate" name="end_date">
+            </div>
+          </div>
+
+
+          <div class="col-md-3">
+            <label class="control-label">&nbsp;</label>
+            <div style="text-align:right;">
+              <button class="btn btn-default round-corner" type="button" id="dropdownMenu4" style="text-align:center;" (click)="generateReport()"  *ngIf="false">
+                <span style="display:inline-block; padding:8px;">Generate Report</span>
+              </button>
+
+              <button class="btn btn-default round-corner" type="button" id="dropdownMenu67" style="text-align:center;" (click)="toggleProduct()">
+                <span style="display:inline-block; padding:8px;" *ngIf="showProduct">Hide Product</span>
+                <span style="display:inline-block; padding:8px;" *ngIf="!showProduct">Show Product</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="col-md-1">
+            <label class="control-label">&nbsp;</label>
+            <div style="text-align:right;">
+              <button class="btn btn-default round-corner" type="button" id="dropdownMenu6" aria-expanded="true" style="text-align:center;">
+                <span style="display:inline-block; padding:8px;">Export</span>
+              </button>
+            </div>
+          </div>
+
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
+<router-outlet></router-outlet>
+
+
+      <!-- /#DYNAMIC SECTION -->
+
+    </div>
+    <!-- /.container-fluid -->
+    <footer class="footer text-center"> 2017 &copy; S3 Reports </footer>
+  </div>
+  <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->

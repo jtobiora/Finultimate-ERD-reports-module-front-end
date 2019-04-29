@@ -1,0 +1,151 @@
+<div>
+    <!--CUSTOMER REPORT ITEMS -->
+<div *ngIf="customerReportItems && customerReportItems.length > 0">
+<div class="white-box">
+<div class="table-responsive">
+<table id="customerDatatable" class="table table-striped display nowrap" cellspacing="0" width="100%" 
+*ngFor="let report of customerReportItems; let ri = index;">
+<thead *ngIf="ri !== -1">
+<tr>
+  <th style="width:200px;">  </th>
+  <th style="width:200px;">Measure</th>
+  <th *ngFor="let reportItem of getSalesReportItems(report);">{{reportItem['dateTitle']}}</th>
+  <th [attr.colspan]="getSalesReportItems(report)[0].reportItems.length"> Totals By Summary </th>
+</tr>
+</thead>
+<tfoot *ngIf="false">
+<tr>
+  <th style="width:200px;">Summary</th>
+  <th *ngFor="let item of getCustomerSalesSummary(report);">
+    <span *ngIf="!item.currency && !item.percentage">{{item.summary === 0 ? 0 : item.summary}}</span>
+    <span *ngIf="item.currency">{{item.summary === 0 ? 0 : item.summary | ncurrency}}</span>
+    <span *ngIf="item.percentage">{{item.summary === 0 ? 0 : item.summary | percentage}}</span>
+  </th>
+</tr>
+</tfoot>
+
+<tbody *ngFor="let item of getSalesReportItems(report)[0].reportItems; let i = index;">
+<tr>
+
+ <!--customer names here-->
+<td>
+  <div *ngIf="i===0">
+    <strong>{{report['customer']['clientName']}}</strong>
+  </div>
+</td>
+
+<!--Items like basket-size, revenue, tax, margin, etc come here-->
+<td style="padding-left:10px;">{{item['title']}}</td>
+
+<!--Data for the date slice comes here -->
+<td *ngFor="let reportItem of getSalesReportItems(report); let j = index;">
+  <div *ngIf="reportItem.reportItems[i] ">
+       <!-- FOR MARGIN -->
+      <span *ngIf="(reportItem.reportItems[i].isPercentage) && (!reportItem.reportItems[i].isCurrency)">{{reportItem.reportItems[i].value | percentage}}</span>
+       <!-- FOR BASKET SIZE -->
+      <span *ngIf="(!reportItem.reportItems[i].isPercentage) && (!reportItem.reportItems[i].isCurrency)">{{reportItem.reportItems[i].value}}</span>
+        <!-- FOR ALL OTHERS -->
+      <span *ngIf="(!reportItem.reportItems[i].isPercentage) && (reportItem.reportItems[i].isCurrency)">{{reportItem.reportItems[i].value | ncurrency}}</span>
+      <!-- <span *ngIf="!reportItem.reportItems[i].isPercentage">{{reportItem.reportItems[i].value | ncurrency}}</span>
+      <span *ngIf="reportItem.reportItems[i].isPercentage">{{reportItem.reportItems[i].value | percentage}}</span> -->
+  </div>
+</td>
+
+<!--Summary data come here -->
+<td style="font-weight: bold;">
+  <div *ngIf="getCustomerSalesSummary(report)[i]">
+    <span *ngIf="!getCustomerSalesSummary(report)[i].isPercentage">{{getCustomerSalesSummary(report)[i].summary}}</span>
+ 
+
+    <!--<span *ngIf="!getCustomerSalesSummary(report)[i].currency && !getCustomerSalesSummary(report)[i].percentage">{{getCustomerSalesSummary(report)[i].summary === 0 ? 0 : getCustomerSalesSummary(report)[i].summary | ncurrency}}</span>
+    <!--<span *ngIf="getCustomerSalesSummary(report)[i].currency">{{getCustomerSalesSummary(report)[i].summary === 0 ? 0 : getCustomerSalesSummary(report)[i].summary | ncurrency}}</span>
+    <span *ngIf="getCustomerSalesSummary(report)[i].percentage">{{getCustomerSalesSummary(report)[i].summary === 0 ? 0 : getCustomerSalesSummary(report)[i].summary | percentage}}</span>-->
+  </div>
+</td>
+
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+
+
+
+       <!--CUSTOMER PRODUCT REPORT ITEMS -->
+<div *ngIf="showProducts && customerProductReportItems && customerProductReportItems.length > 0">
+<div class="white-box">
+<div class="table-responsive">
+<table id="datatable4" class="table table-striped display nowrap" cellspacing="0" width="100%" *ngFor="let customerItem of customerProductReportItems">
+<thead>
+<tr>
+<th style="width:200px;"> </th>
+<!--<th *ngFor="let title of getReportTitles()">{{title}}</th>-->
+<th *ngFor="let reportItem of customerItem['report']['reports']">{{reportItem['dateTitle']}}</th>
+<th><strong>Cost of Goods</strong></th>
+<th><strong>Revenue</strong></th>
+<th><strong>Gross Profit</strong></th>
+<th><strong>Margin</strong></th>
+<th><strong>Tax</strong></th>
+<th><strong>Total Products</strong></th>
+</tr>
+</thead>
+<!-- <tfoot *ngIf="false">
+<tr>
+<th style="width:200px;">Summary</th>
+<th *ngFor="let item of getSummary();">
+  <span *ngIf="!item.currency && !item.percentage">{{item.summary === 0 ? 0 : item.summary}}</span>
+  <span *ngIf="item.currency">{{item.summary === 0 ? 0 : item.summary | ncurrency}}</span>
+  <span *ngIf="item.percentage">{{item.summary === 0 ? 0 : item.summary | percentage}}</span>
+</th>
+</tr>
+</tfoot> -->
+<tbody>
+<tr>
+<td [attr.colspan]="7 + customerItem['report']['reports'].length">
+  <strong style="font-size:16px;">
+    {{customerItem['customer']['clientName']}}
+  </strong>
+</td>
+</tr>
+<tr *ngFor="let item of customerItem['report']['reports'][0].reportItems; let i = index;">
+<td style="padding-left:10px;">{{item['title']}}</td>
+<td *ngFor="let reportItem of customerItem['report']['reports']; let j = index;">
+  <span *ngIf="reportItem.reportItems[i]!==null && !reportItem.reportItems[i].currency && !reportItem.reportItems[i].percentage">{{reportItem.reportItems[i].value || reportItem.reportItems[i].value === 0 ? reportItem.reportItems[i].value : reportItem.reportItems[i].value}}</span>
+  <span *ngIf="reportItem.reportItems[i]!==null && reportItem.reportItems[i].currency">{{(reportItem.reportItems[i].value ? reportItem.reportItems[i].value : reportItem.reportItems[i].value) | ncurrency}}</span>
+  <span *ngIf="reportItem.reportItems[i]!==null && reportItem.reportItems[i].percentage">{{(reportItem.reportItems[i].value ? reportItem.reportItems[i].value : reportItem.reportItems[i].value) | percentage}}</span>
+</td>
+<td>
+  {{getProductDetails(item['title'], 'Cost of Goods', customerItem['report']['reports']) | ncurrency}}
+</td>
+<td>
+  {{getProductDetails(item['title'], 'Revenue', customerItem['report']['reports']) | ncurrency}}
+</td>
+<td>
+  {{getProductDetails(item['title'], 'Gross Profit', customerItem['report']['reports']) | ncurrency}}
+</td>
+<td>
+  {{getProductDetails(item['title'], 'Margin', customerItem['report']['reports']) | percentage}}
+</td>
+<td>
+  {{getProductDetails(item['title'], 'Tax', customerItem['report']['reports']) | ncurrency}}
+</td>
+<td><strong>{{getParticularProductSummary(i, customerItem['report']['reports'])}}</strong></td>
+</tr>
+<tr style="">
+<td><strong>Total Quantity</strong></td>
+<td *ngFor="let item of customerItem['report']['reports']; let i = index">
+  <strong>{{getItemSummary(i, customerItem['report']['reports'])}}</strong>
+</td>
+<td colspan="6"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+</div>  

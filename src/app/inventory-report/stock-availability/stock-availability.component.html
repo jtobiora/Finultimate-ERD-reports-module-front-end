@@ -1,0 +1,249 @@
+<div *ngIf = "availabilitySummary && availabilitySummary.length > 0">
+   <div class="white-box">
+    <div class="table-responsive">
+        <h3 style="text-align: center;font-weight: bold">STOCK AVAILABILITY REPORT</h3>
+             
+         <!--reorder levels indicators-->
+                <div class="col-xs-12" style="margin: 14px;text-align: center">
+                    <div class="checkbox checkbox-success" style="display:inline">
+                        <input id="checkbox5" type="checkbox">
+                        <label for="checkbox5">
+                            Above reorder level
+                        </label>
+                    </div>
+                    <div class="checkbox checkbox-warning" style="display:inline">
+                        <input id="checkbox2" type="checkbox">
+                        <label for="checkbox2">
+                           Close to reorder level
+                        </label>
+                    </div>
+                    <div class="checkbox checkbox-danger" style="display:inline">
+                        <input id="checkbox6" type="checkbox">
+                        <label for="checkbox6">
+                           Below reorder level
+                        </label>
+                    </div>
+                </div>
+            <!--reorder levels indicators-->
+
+        <table *ngFor = "let list of availabilitySummary" id="availabilityDatatable" class="table display" 
+             cellspacing="0" width="100%">
+                <thead>
+                     <tr>
+                        <th style="width:30%"><b>Item Name</b></th>
+                        <th style="width:20%"><b>Stock Batch No</b></th>                  
+                        <th style="width:15%"><b>Purchase Order No</b></th>
+                        <th style="width:15%"><b>Date of Entry</b></th>
+                        <th style="width:15%"><b>Stock Qty Left</b></th>
+                        <th style="width:5%"><b>Status</b></th>
+                      </tr>
+                </thead>
+                <tbody>
+                      <tr *ngFor = "let details of list.reportPull.reportDetails" class="rowStripped">                               
+                        <td style="width:30%;">{{details.itemName}}</td>
+                        <td style="width:20%">{{details.stockBatchNumber}}</td>
+                        <td style="width:15%">{{details.purchaseOrderNumber}}</td>
+                        <td style="width:15%">
+                            <div *ngIf ="details.dateOfEntry === null">
+                                    -
+                            </div>
+                            <div  *ngIf ="details.dateOfEntry !== null">
+                                  {{details.dateOfEntry | date}}
+                            </div>
+                        </td>
+                        <td style="width:15%;text-align:center;">{{details.stockLeft}}</td>
+                        <td style="width:5%">
+                           <div *ngIf = "(details.stockLeft > details.reorderLevel) && (details.stockLeft - details.reorderLevel > 3)" [ngStyle]="{'background-color':'green'}">
+                                &nbsp;
+                           </div>
+                           <div *ngIf = "(details.stockLeft > details.reorderLevel) && (details.stockLeft - details.reorderLevel === 1 || details.stockLeft - details.reorderLevel === 2 || details.stockLeft - details.reorderLevel === 3)" [ngStyle]="{'background-color':'yellow'}">
+                                &nbsp;
+                           </div>
+                           <div *ngIf = "details.stockLeft === details.reorderLevel" [ngStyle]="{'background-color':'yellow'}">
+                                &nbsp;
+                           </div>
+                           <div *ngIf = "details.stockLeft < details.reorderLevel" [ngStyle]="{'background-color':'red'}">
+                                 &nbsp;
+                           </div>
+                        </td>
+                      </tr>
+                </tbody>
+        </table> 
+    </div><!--end table responsive-->
+</div><!--end whitebox-->
+</div>
+
+
+<!--START INVENTORY AVAILABILITY-REPORT by BRAND -->
+<div *ngIf = "availabilitySummaryByBrand && availabilitySummaryByBrand.length > 0">
+   <div class="white-box">
+    <div class="table-responsive">
+        <h3 style="text-align: center;font-weight: bold">STOCK AVAILABILITY REPORT</h3>
+             
+         <!--reorder levels indicators-->
+                <div class="col-xs-12" style="margin: 14px;text-align: center">
+                    <div class="checkbox checkbox-success" style="display:inline">
+                        <input id="checkbox5" type="checkbox">
+                        <label for="checkbox5">
+                            Above reorder level
+                        </label>
+                    </div>
+                    <div class="checkbox checkbox-warning" style="display:inline">
+                        <input id="checkbox2" type="checkbox">
+                        <label for="checkbox2">
+                           Close to reorder level
+                        </label>
+                    </div>
+                    <div class="checkbox checkbox-danger" style="display:inline">
+                        <input id="checkbox6" type="checkbox">
+                        <label for="checkbox6">
+                           Below reorder level
+                        </label>
+                    </div>
+                </div>
+            <!--reorder levels indicators-->
+
+        <table *ngFor = "let list of availabilitySummaryByBrand" id="availabilityDatatable" class="table display" 
+             cellspacing="0" width="100%">
+                <thead>
+                     <tr>
+                        <th style="width:10%"><b>Brand</b></th>
+                        <th style="width:30%"><b>Item Name</b></th>
+                        <th style="width:20%"><b>Stock Batch No</b></th>                  
+                        <th style="width:15%"><b>Purchase Order No</b></th>
+                        <th style="width:10%"><b>Date of Entry</b></th>
+                        <th style="width:10%"><b>Stock Qty Left</b></th>
+                        <th style="width:5%"><b>Status</b></th>
+                      </tr>
+                </thead>
+                <tbody>
+                      <tr *ngFor = "let details of list.reportPull.reportDetails" class="rowStripped">    
+                        <td style="width:10%;font-weight:500;">{{details.brandType}}</td>                            
+                        <td style="width:30%">{{details.itemName}}</td>
+                        <td style="width:20%">{{details.stockBatchNumber}}</td>
+                        <td style="width:15%">{{details.purchaseOrderNumber}}</td>
+                        <td style="width:10%">
+                            <div *ngIf ="details.dateOfEntry === null">
+                                    -
+                            </div>
+                            <div  *ngIf ="details.dateOfEntry !== null">
+                                  {{details.dateOfEntry | date}}
+                            </div>
+                        </td>
+                        <td style="width:10%;text-align:center;">{{details.stockLeft}}</td>
+                        <td style="width:5%">
+                           <div *ngIf = "(details.stockLeft > details.reorderLevel) && (details.stockLeft - details.reorderLevel > 3)" [ngStyle]="{'background-color':'green'}">
+                                &nbsp;
+                           </div>
+                           <div *ngIf = "(details.stockLeft > details.reorderLevel) && (details.stockLeft - details.reorderLevel === 1 || details.stockLeft - details.reorderLevel === 2 || details.stockLeft - details.reorderLevel === 3)" [ngStyle]="{'background-color':'yellow'}">
+                                &nbsp;
+                           </div>
+                           <div *ngIf = "details.stockLeft === details.reorderLevel" [ngStyle]="{'background-color':'yellow'}">
+                                &nbsp;
+                           </div>
+                           <div *ngIf = "details.stockLeft < details.reorderLevel" [ngStyle]="{'background-color':'red'}">
+                                 &nbsp;
+                           </div>
+                        </td>
+                      </tr>
+                </tbody>
+        </table> 
+    </div><!--end table responsive-->
+</div><!--end whitebox-->
+</div>
+<!--END INVENTORY AVAILABILITY-REPORT by BRAND -->
+
+
+<!--START INVENTORY AVAILABILITY-REPORT by WAREHOUSE -->
+<div *ngIf = "availabilitySummaryByWarehouse && availabilitySummaryByWarehouse.length > 0">
+   <div class="white-box">
+    <div class="table-responsive">
+        <h3 style="text-align: center;font-weight: bold">STOCK AVAILABILITY REPORT</h3>
+             
+         <!--reorder levels indicators-->
+                <div class="col-xs-12" style="margin: 14px;text-align: center">
+                    <div class="checkbox checkbox-success" style="display:inline">
+                        <input id="checkbox5" type="checkbox">
+                        <label for="checkbox5">
+                            Above reorder level
+                        </label>
+                    </div>
+                    <div class="checkbox checkbox-warning" style="display:inline">
+                        <input id="checkbox2" type="checkbox">
+                        <label for="checkbox2">
+                           Close to reorder level
+                        </label>
+                    </div>
+                    <div class="checkbox checkbox-danger" style="display:inline">
+                        <input id="checkbox6" type="checkbox">
+                        <label for="checkbox6">
+                           Below reorder level
+                        </label>
+                    </div>
+                </div>
+            <!--reorder levels indicators-->
+
+        <table *ngFor = "let list of availabilitySummaryByWarehouse" id="availabilityDatatable" class="table display" 
+             cellspacing="0" width="100%">
+                <thead>
+                     <tr>
+                        <th style="width:10%"><b>Warehouse</b></th>
+                        <th style="width:30%"><b>Item Name</b></th>
+                        <th style="width:20%"><b>Stock Batch No</b></th>                  
+                        <th style="width:15%"><b>Purchase Order No</b></th>
+                        <th style="width:10%"><b>Date of Entry</b></th>
+                        <th style="width:10%"><b>Stock Qty Left</b></th>
+                        <th style="width:5%"><b>Status</b></th>
+                      </tr>
+                </thead>
+                <tbody>
+                      <tr *ngFor = "let details of list.reportPull.reportDetails" class="rowStripped">    
+                        <td style="width:10%;font-weight:500;">{{details.warehouse}}</td>                            
+                        <td style="width:30%">{{details.itemName}}</td>
+                        <td style="width:20%">{{details.stockBatchNumber}}</td>
+                        <td style="width:15%">{{details.purchaseOrderNumber}}</td>
+                        <td style="width:10%">
+                            <div *ngIf ="details.dateOfEntry === null">
+                                    -
+                            </div>
+                            <div  *ngIf ="details.dateOfEntry !== null">
+                                  {{details.dateOfEntry | date}}
+                            </div>
+                        </td>
+                        <td style="width:10%;text-align:center;">{{details.stockLeft}}</td>
+                        <td style="width:5%">
+                           <div *ngIf = "(details.stockLeft > details.reorderLevel) && (details.stockLeft - details.reorderLevel > 3)" [ngStyle]="{'background-color':'green'}">
+                                &nbsp;
+                           </div>
+                           <div *ngIf = "(details.stockLeft > details.reorderLevel) && (details.stockLeft - details.reorderLevel === 1 || details.stockLeft - details.reorderLevel === 2 || details.stockLeft - details.reorderLevel === 3)" [ngStyle]="{'background-color':'yellow'}">
+                                &nbsp;
+                           </div>
+                           <div *ngIf = "details.stockLeft === details.reorderLevel" [ngStyle]="{'background-color':'yellow'}">
+                                &nbsp;
+                           </div>
+                           <div *ngIf = "details.stockLeft < details.reorderLevel" [ngStyle]="{'background-color':'red'}">
+                                 &nbsp;
+                           </div>
+                        </td>
+                      </tr>
+                </tbody>
+        </table> 
+    </div><!--end table responsive-->
+</div><!--end whitebox-->
+</div>
+<!--END INVENTORY EXPIRY-LIST-REPORT by WAREHOUSE -->
+
+
+
+
+<div *ngIf = "availabilitySummary && isEmptyObject(availabilitySummary)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>
+
+<div *ngIf = "availabilitySummaryByBrand && isEmptyObject(availabilitySummaryByBrand)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>
+
+<div *ngIf = "availabilitySummaryByWarehouse && isEmptyObject(availabilitySummaryByWarehouse)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>

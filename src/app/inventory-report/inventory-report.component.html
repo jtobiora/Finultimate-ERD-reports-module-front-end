@@ -1,0 +1,320 @@
+<!-- Preloader -->
+<div class="preloader">
+  <div class="cssload-speeding-wheel"></div>
+</div>
+<div id="wrapper">
+  <!-- Top Navigation -->
+  <nav class="navbar navbar-default navbar-static-top m-b-0">
+    <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+      <!--<div class="top-left-part"><a class="logo" href="index.html"><b><img src="../assets/plugins/images/eliteadmin-logo.png" alt="home" /></b><span class="hidden-xs"><strong>S3</strong>Reports</span></a></div>-->
+      <div class="top-left-part"><a class="logo" href="index.html"><b><img [src]="logo" alt="home" width="50" height="50"/></b><span class="hidden-xs"><strong>S3</strong>Reports</span></a></div>
+
+           <div class="pull-right" style="padding: 20px 20px 0 0; color:#fff; font-weight: bold;">{{tenantName}}</div>
+    </div>
+    <!-- /.navbar-header -->
+    <!-- /.navbar-top-links -->
+    <!-- /.navbar-static-side -->
+  </nav>
+  <!-- End Top Navigation -->
+  <!-- Left navbar-header -->
+  <div class="navbar-default sidebar" role="navigation">
+
+    <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+
+      <ul class="nav" id="side-menu">
+
+        <li class="sidebar-search hidden-sm hidden-md hidden-lg">
+          <!-- input-group -->
+          <div class="input-group custom-search-form">
+            <input type="text" class="form-control" placeholder="Search..."> <span class="input-group-btn">
+            <button class="btn btn-default" type="button"> <i class="fa fa-search"></i> </button>
+            </span> </div>
+          <!-- /input-group -->
+        </li>
+       
+        <li><a href="index.html" class="waves-effect"><i class="linea-icon linea-basic fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard </span></a></li>
+
+        <li> <a href="sales-report/summary" class="waves-effect"><i data-icon="Z" class="linea-icon linea-ecommerce fa-fw"></i> <span class="hide-menu">POS Sales Report</span></a></li>
+        <li> <a href="sales-report-cluster/summary" class="waves-effect"><i data-icon="Z" class="linea-icon linea-ecommerce fa-fw"></i> <span class="hide-menu">Sales Report</span></a></li>
+        <li> <a href="inventory-report" class="waves-effect"><i data-icon="b" class="linea-icon linea-ecommerce fa-fw" (click) ="wait()"></i> <span class="hide-menu">Inventory Report</span></a></li>
+        <li> <a href="vendors-report" class="waves-effect"><i data-icon="A" class="linea-icon linea-ecommerce fa-fw" (click) ="wait()"></i> <span class="hide-menu">Vendors Report</span></a></li>
+        <li><a href="logout" class="waves-effect"><i class="icon-logout fa-fw"></i> <span class="hide-menu">Log Out</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- Left navbar-header end -->
+  <!-- Page Content -->
+  <div id="page-wrapper">
+    <div class="container-fluid">
+      <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h4 class="page-title">Reports</h4>
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="#">Dashboard</a></li>
+          </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+      </div>
+
+      <!-- /#DYNAMIC SECTION -->
+      <div class="white-box" style="min-height:13px;">
+  <h1 class="">Inventory Report</h1>
+  <div class="panel">
+    <div class="panel-body" style="padding-left:0; padding-right:0;">
+      <form role="form">
+        <div class="row" class="col-md-12">
+          <div class="col-md-3">
+            <label class="control-label">Report Type</label>
+            <div class="dropdown">
+               <button class="btn btn-default round-corner" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 90%; text-align:left;">
+                <span style="display:inline-block; padding:8px 8px 8px 8px;">{{reportType}}</span>
+                <i class="fa fa-fw dd-icon fa-caret-down"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width:80%">
+                <li><a (click)="selectReport('Expiry List')">Expiry List</a></li>
+                <li><a (click)="selectReport('Stock Aging')">Stock Aging</a></li>
+                <li><a (click)="selectReport('Stock Value')">Stock Value</a></li>
+                <li><a (click)="selectReport('Below Min Qty')">Below min. Qty</a></li>
+                <li><a (click)="selectReport('Inventory Listing')">Inventory Listing</a></li>
+                <li><a (click)="selectReport('Best Selling')">Best Selling</a></li>
+                <li><a (click)="selectReport('Worst Selling')">Worst Selling</a></li>
+                <li><a (click)="selectReport('Stock Movement')">Stock Movement</a></li>
+                <li><a (click)="selectReport('Stock Availability')">Stock Availability</a></li>
+              </ul>
+            </div>
+          </div><!--col-md-3-->
+
+          <div class="col-md-3">
+            <label class="control-label">Measure / Criteria</label>
+            <div class="dropdown">
+              <button class="btn btn-default round-corner" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 90%; text-align:left;">
+                <span style="display:inline-block; padding:8px 8px 8px 8px;">{{measure}}</span>
+                <i class="fa fa-fw dd-icon fa-caret-down"></i>
+              </button>
+               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a (click)="selectMeasure('Item', 'item')">By Item</a></li>
+                <li [hidden] = 'hiddenBR'><a (click)="selectMeasure('Brand', 'brand')">By Brand</a></li>
+                <li [hidden] = 'hiddenWH'><a (click)="selectMeasure('Warehouse', 'warehouse')">By Warehouse</a></li>
+              </ul>
+            </div>
+          </div><!--col-md-3-->
+
+          <div class="col-md-3">
+            <label class="control-label">{{startDateLabel}}</label>
+            <div>
+              <input type="text" class="start_datepicker" style="margin:2px;width:90%" [(ngModel)]="startDate" name="start_date"  [hidden] ='isDisabled' [style.cursor] = "cursorChange? 'pointer' : 'default'">
+            </div>
+          </div><!--col-md-3-->
+
+          <div class="col-md-3">
+            <label class="control-label">{{endDateLabel}}</label>
+            <div>
+              <input type="text" class="end_datepicker" style="margin:2px;width:90%" [(ngModel)]="endDate" [hidden] ='isDisabled' name="end_date">
+            </div>
+          </div><!--col-md-3-->       
+        </div><!--end col-md-12-->
+         
+         <div class="col-md-12">
+            <div class="col-md-2">
+            <label class="control-label">&nbsp;</label>
+            <div style="text-align:left;">
+              <button class="btn btn-default round-corner" type="button" id="view-report" style="text-align:center;" (click)="viewReport()">
+                <span style="display:inline-block;"><strong>View Report</strong></span>
+              </button>
+
+              <!--<button class="btn btn-default round-corner" type="button" id="dropdownMenu67" style="text-align:center;" (click)="toggleProduct()">
+                <span style="display:inline-block;" *ngIf="showProduct">Hide Product</span>
+                <span style="display:inline-block" *ngIf="!showProduct">Show Product</span>
+              </button>-->
+            </div>
+          </div><!--col-md-2-->
+         </div>
+      </form><!--end form-->
+
+    </div>
+  </div>
+
+</div>
+
+
+
+<!--Data display occurs here-->
+<!---<router-outlet></router-outlet>--->
+
+
+<!--Data display occurs here-->
+<div>
+    <div *ngIf="reportTypeCheck === 'Expiry List'">     
+        <div *ngIf= "measureTypeCheck ===  'Item'">
+                    <app-expiry-list [expiryListSummary] = 'itemNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                    </app-expiry-list>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Brand'">
+                    <app-expiry-list [expiryListSummaryByBrand] = 'brandNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                    </app-expiry-list>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Warehouse'">
+                 <app-expiry-list [expiryListSummaryByWarehouse] = "warehouseSummary" 
+                   [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                 </app-expiry-list>
+        </div>
+    </div><!--END EXPIRY LIST DISPLAY-->
+
+
+
+    <div *ngIf="reportTypeCheck === 'Stock Aging'">     
+        <div *ngIf= "measureTypeCheck ===  'Item'">
+                 <app-stock-aging [stockAgingSummary] = 'itemNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                 </app-stock-aging>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Brand'">
+                 <app-stock-aging [stockAgingSummaryByBrand] = 'brandNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                 </app-stock-aging>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Warehouse'">
+                 <app-stock-aging [stockAgingSummaryByWarehouse] = "warehouseSummary" 
+                   [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                 </app-stock-aging>
+        </div>
+    </div><!--END STOCK AGING DISPLAY-->
+
+
+
+    <div *ngIf="reportTypeCheck === 'Stock Value'">     
+        <div *ngIf= "measureTypeCheck ===  'Item'">
+                <app-stock-value [stockValueSummary] = 'itemNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-stock-value>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Brand'">
+                <app-stock-value [stockValueSummaryByBrand] = 'brandNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-stock-value>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Warehouse'">
+                <app-stock-value [stockValueSummaryByWarehouse] = 'warehouseSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-stock-value>
+        </div>
+    </div><!--END STOCK VALUE DISPLAY-->
+
+
+
+    <div *ngIf="reportTypeCheck === 'Below Min Qty'">     
+        <div *ngIf= "measureTypeCheck ===  'Item'">
+                <app-min-quantity [minQtySummary] = 'itemNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-min-quantity>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Brand'">
+                <app-min-quantity [minQtyByBrand] = 'brandNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-min-quantity>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Warehouse'">
+                <app-min-quantity [minQtyByWarehouse] = 'warehouseSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-min-quantity>
+        </div>
+    </div><!--END BELOW INVENTORY MINIMUM DISPLAY-->
+
+
+
+    <div *ngIf="reportTypeCheck === 'Best Selling'">     
+        <div *ngIf= "measureTypeCheck ===  'Item'">
+                <app-best-selling [bestSellingListSummary] = 'itemNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-best-selling>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Brand'">
+                <app-best-selling [bestSellingListSummaryByBrand] = 'brandNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-best-selling>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Warehouse'">
+                <app-best-selling [bestSellingListSummaryByWarehouse] = 'warehouseSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-best-selling>
+        </div>
+    </div><!--END BEST SELLING DISPLAY-->
+
+
+    <div *ngIf="reportTypeCheck === 'Worst Selling'">     
+        <div *ngIf= "measureTypeCheck ===  'Item'">
+                <app-worst-selling [worstSellingListSummary] = 'itemNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-worst-selling>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Brand'">
+                <app-worst-selling [worstSellingListSummaryByBrand] = 'brandNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-worst-selling>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Warehouse'">
+                <app-worst-selling [worstSellingListSummaryByWarehouse] = 'warehouseSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-worst-selling>
+        </div>
+    </div><!--END WORST SELLING DISPLAY-->
+
+
+
+    <div *ngIf="reportTypeCheck === 'Inventory Listing'">
+        <div *ngIf= "measureTypeCheck ===  'Item'">
+                <app-inventory-listing [inventoryListingSummary] = 'itemNameSummary'  
+                  [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-inventory-listing>
+        </div>
+    </div>
+    <!--END INVENTORY-LISTING DISPLAY-->
+
+
+
+    <div *ngIf="reportTypeCheck === 'Stock Availability'">
+        <div *ngIf= "measureTypeCheck ===  'Item'">
+                <app-stock-availability [availabilitySummary] = 'itemNameSummary'  
+                  [byItem] = 'measure' [limit] ="limit">
+                </app-stock-availability>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Brand'">
+                <app-stock-availability [availabilitySummaryByBrand] = 'brandNameSummary'  
+                    [byItem] = 'measure' [limit] ="limit">
+                </app-stock-availability>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Warehouse'">
+                <app-stock-availability [availabilitySummaryByWarehouse] = 'warehouseSummary'  
+                    [byItem] = 'measure' [limit] ="limit">
+                </app-stock-availability>
+        </div>
+    </div>
+    <!--END STOCK-AVAILABILITY DISPLAY-->
+
+
+    <div *ngIf="reportTypeCheck === 'Stock Movement'">     
+        <div *ngIf= "measureTypeCheck ===  'Item'">
+                <app-stock-movement [stockMovementSummary] = 'itemNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-stock-movement>
+        </div>
+        <div *ngIf= "measureTypeCheck ===  'Brand'">
+                <app-stock-movement [stockMovementSummaryByBrand] = 'brandNameSummary'  
+                    [byItem] = 'measure' [fromMsg] = 'periodFrom' [toMsg] = 'periodTo' [limit] ="limit">
+                </app-stock-movement>
+        </div>
+    </div><!--END STOCK-MOVEMENT DISPLAY-->
+</div>
+      <!-- /#DYNAMIC SECTION -->
+
+    </div>
+    <!-- /.container-fluid -->
+    <footer class="footer text-center"> 2017 &copy; S3 Reports </footer>
+  </div>
+  <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->

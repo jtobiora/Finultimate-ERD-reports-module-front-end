@@ -1,0 +1,35 @@
+<div *ngIf = "purchaseOrderSummary && purchaseOrderSummary.length > 0">
+        <div class="white-box">
+                <div class="table-responsive">
+                        <h3 style="text-align: center;font-weight: bold">Purchase Order Report</h3>
+                        <h5 style="text-align: center;font-weight: bold">Period Covered: &nbsp; {{message}}</h5>
+                        <table *ngFor = "let summary of purchaseOrderSummary" id="purchaseOrderDatatable" 
+                            class="table display" cellspacing="0" width="100%">
+                             
+                            <thead>
+                                <tr>
+                                    <th style="width:20%"><b>Purchase Order No</b></th>
+                                    <th style="width:20%"><b>Purchase Order Desc</b></th>                  
+                                    <th style="width:20%"><b>Purchase Order Date</b></th>
+                                    <th style="width:20%"><b>Total Amount</b></th>
+                                    <th style="width:20%"><b>Status</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor = "let details of summary.listOfPurchaseOrders" class="rowStripped"> 
+                                    <td style="width:20%;">{{details.purchase_order_code}}</td>
+                                    <td style="width:20%">{{details.purchase_order_desc}}</td>
+                                    <td style="width:20%">{{details.purchase_order_date | date}}</td>
+                                    <td style="width:20%">&#x20A6;{{details.total_amount | number : '1.2-2'}}</td>
+                                    <td style="width:20%">{{details.status}}</td>
+                                </tr>
+                            </tbody>
+                        </table><!-- end table -->
+                </div><!-- end table responsive -->
+        </div><!-- end white box -->
+</div>
+
+
+<div *ngIf = "purchaseOrderSummary && isEmptyObject(purchaseOrderSummary)">
+        <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p>  
+</div>

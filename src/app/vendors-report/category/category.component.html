@@ -1,0 +1,57 @@
+<div *ngIf = "categorySummary && categorySummary.length > 0">
+        <div class="white-box">
+                <div class="table-responsive">
+                        <h3 style="text-align: center;font-weight: bold">Item Category Report</h3>
+                        <h5 style="text-align: center;font-weight: bold">Period Covered: &nbsp; {{message}}</h5>
+                        <table *ngFor = "let summary of categorySummary" id="categoryDatatable" 
+                            class="table display" cellspacing="0" width="200%">
+                             
+                            <thead>
+                                <tr>
+                                    <th><b>Supplier Name</b></th>
+                                    <th><b>Purchase Order No</b></th>
+                                    <th><b>Item Category</b></th>
+                                    <th><b>Item Desc</b></th>                  
+                                    <th><b>Item Name</b></th>
+                                    <th><b>Item Price</b></th>
+                                    <th><b>Order Initiator</b></th>
+                                    <th><b>Status</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor = "let details of summary.reportHolder" class="rowStripped"> 
+                                    <td style='font-weight:500;'>{{details.supplierName}}</td>
+                                    <td>{{details.purchaseOrderNo}}</td>
+                                    <td>{{details.itemCategory}}</td>
+                                    <td>{{details.itemDescription}}</td>
+                                    <td>{{details.itemName}}</td>
+                                    <td>
+                                       <!-- <div *ngIf="details.currency === 'NGN'">
+                                            &#8358; {{details.totalAmount | number : '1.2-2'}}
+                                       </div>
+                                       <div *ngIf="details.currency === 'GBP'">
+                                            &#xa3; {{details.totalAmount | number : '1.2-2'}}
+                                       </div>
+                                       <div *ngIf="details.currency === 'USD'">
+                                            &#x24; {{details.totalAmount | number : '1.2-2'}}
+                                       </div> -->
+                                       <!-- <div *ngIf="details.currency !== 'USD' && details.currency !== 'NGN' && details.currency !== 'GBP'">
+                                            &#8358; {{details.totalAmount | number : '1.2-2'}}
+                                       </div>   -->
+                                        <div>
+                                           {{details.currency}} &nbsp;{{details.totalAmount | number : '1.2-2'}}
+                                       </div>  
+                                    </td>   
+                                    <td>{{details.orderInitiator}}</td>
+                                    <td>{{details.status}}</td>
+                                </tr>
+                            </tbody>
+                        </table><!-- end table -->
+                </div><!-- end table responsive -->
+        </div><!-- end white box -->
+</div>
+
+
+<div *ngIf = "categorySummary && isEmptyObject(categorySummary)">
+  <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p>  
+</div>

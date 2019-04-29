@@ -1,0 +1,188 @@
+<!-- Preloader -->
+<div class="preloader">
+  <div class="cssload-speeding-wheel"></div>
+</div>
+<div id="wrapper">
+  <!-- Top Navigation -->
+  <nav class="navbar navbar-default navbar-static-top m-b-0">
+    <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+      <!--<div class="top-left-part"><a class="logo" href="index.html"><b><img src="../assets/plugins/images/eliteadmin-logo.png" alt="home" /></b><span class="hidden-xs"><strong>S3</strong>Reports</span></a></div>-->
+      <div class="top-left-part"><a class="logo" href="index.html"><b><img [src]="logo" alt="home" width="50" height="50"/></b><span class="hidden-xs"><strong>S3</strong>Reports</span></a></div>
+      
+ 
+           <div class="pull-right" style="padding: 20px 20px 0 0; color:#fff; font-weight: bold;">{{tenantName}}</div>
+    </div>
+    <!-- /.navbar-header -->
+    <!-- /.navbar-top-links -->
+    <!-- /.navbar-static-side -->
+  </nav>
+  <!-- End Top Navigation -->
+  <!-- Left navbar-header -->
+  <div class="navbar-default sidebar" role="navigation">
+
+    <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+
+      <ul class="nav" id="side-menu">
+
+        <li class="sidebar-search hidden-sm hidden-md hidden-lg">
+          <!-- input-group -->
+          <div class="input-group custom-search-form">
+            <input type="text" class="form-control" placeholder="Search..."> <span class="input-group-btn">
+            <button class="btn btn-default" type="button"> <i class="fa fa-search"></i> </button>
+            </span> </div>
+          <!-- /input-group -->
+        </li>
+        
+        <li><a href="index.html" class="waves-effect"><i class="linea-icon linea-basic fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard </span></a></li>
+
+        <li> <a href="sales-report/summary" class="waves-effect"><i data-icon="Z" class="linea-icon linea-ecommerce fa-fw"></i> <span class="hide-menu">POS Sales Report</span></a></li>
+        <li> <a href="sales-report-cluster/summary" class="waves-effect"><i data-icon="Z" class="linea-icon linea-ecommerce fa-fw"></i> <span class="hide-menu">Sales Report</span></a></li>
+        <li> <a href="inventory-report" class="waves-effect"><i data-icon="b" class="linea-icon linea-ecommerce fa-fw" (click)="wait"></i> <span class="hide-menu">Inventory Report</span></a></li>
+        <li> <a href="vendors-report" class="waves-effect"><i data-icon="A" class="linea-icon linea-ecommerce fa-fw" (click)="wait"></i> <span class="hide-menu">Vendors Report</span></a></li>
+        <li><a href="logout" class="waves-effect"><i class="icon-logout fa-fw"></i> <span class="hide-menu">Log Out</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- Left navbar-header end -->
+  <!-- Page Content -->
+  <div id="page-wrapper">
+    <div class="container-fluid">
+      <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h4 class="page-title">Reports</h4>
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="#">Dashboard</a></li>
+          </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+      </div>
+
+      <!-- /#DYNAMIC SECTION -->
+        <div class="white-box" style="min-height:13px;">
+  <h2 style='font-size:30px;'>Vendors / Procurement Report</h2>
+  <div class="panel">
+    <div class="panel-body" style="padding-left:0; padding-right:0;">
+      <form role="form">
+        <!-- <div class="col-md-12" style="margin-bottom:15px;margin-left:7px">
+             <label class="control-label">Items Per Page</label>
+            <input type = "number" max="100" step="10" min="10" style="width: 5%;text-align:center;" [(ngModel)] ="limit" name="limit">
+        </div> -->
+
+        <div class="row" class="col-md-12">
+          <div class="col-md-3">
+            <label class="control-label">Report Type</label>
+            <div class="dropdown">
+              <button class="btn btn-default round-corner" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 90%; text-align:left;">
+                <span style="display:inline-block; padding:8px;">{{reportType}}</span>
+                <i class="fa fa-fw dd-icon fa-caret-down"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a (click)="selectReport('Vendor Summary')"  style='cursor:pointer'>Vendor Summary</a></li>
+                <li><a (click)="selectReport('Procurement')"  style='cursor:pointer'>Procurement</a></li>
+              </ul>
+            </div>
+          </div><!--col-md-3-->
+
+          <div class="col-md-3">
+            <label class="control-label">Measure | Criteria</label>
+            <div class="dropdown">
+              <button class="btn btn-default round-corner" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 90%; text-align:left;">
+                <span style="display:inline-block; padding:8px;">{{measure}}</span>
+                <i class="fa fa-fw dd-icon fa-caret-down"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li [hidden] = 'rp1_hidden'><a (click)="setMeasure('Vendor Performance', 'vendor-performance')"  style='cursor:pointer'>By Vendor Performance</a></li>
+                <li [hidden] = 'rp1_hidden'><a (click)="setMeasure('Vendor Payments', 'vendor-payments')"  style='cursor:pointer'>By Vendor Payments</a></li>
+                <li [hidden] = 'rp1_hidden'><a (click)="setMeasure('Brand', 'brand')"  style='cursor:pointer'>By Brand</a></li>
+                <li [hidden] = 'rp2_hidden'><a (click)="setMeasure('By Vendor', 'vendors')"  style='cursor:pointer'>By Vendor</a></li>
+                <li [hidden] = 'rp2_hidden'><a (click)="setMeasure('By Item', 'item')"  style='cursor:pointer'>By Item</a></li>
+                <li [hidden] = 'rp2_hidden'><a (click)="setMeasure('By Purchase Order', 'purchase order')"  style='cursor:pointer'>By Purchase Order</a></li>
+                <li [hidden] = 'rp2_hidden'><a (click)="setMeasure('By Item Category', 'item category')"  style='cursor:pointer'>By Category</a></li>
+                <li [hidden] = 'rp2_hidden'><a (click)="setMeasure('Brand', 'brand')"  style='cursor:pointer'>By Brand</a></li>
+              </ul>
+            </div>
+          </div><!--col-md-3-->
+
+          <div class="col-md-3">
+            <label class="control-label">Start Date</label>
+            <div>
+              <input type="text" class="start_datepicker" [(ngModel)]="startDate" name="start_date" style="margin:2px;width:90%">
+            </div>
+          </div><!--col-md-3-->
+
+          <div class="col-md-3">
+            <label class="control-label">End Date</label>
+            <div>
+              <input type="text" class="end_datepicker" [(ngModel)]="endDate" name="end_date" style="margin:2px;width:90%;">
+            </div>
+          </div><!--col-md-3-->       
+        </div><!--end col-md-12-->
+         
+         <div class="col-md-12">
+            <div class="col-md-2">
+            <label class="control-label">&nbsp;</label>
+            <div style="text-align:left;">
+              <button class="btn btn-default round-corner" type="button" id="dropdownMenu4" style="text-align:center;" (click)="viewReport()">
+                <span style="display:inline-block;"><strong>View Report</strong></span>
+              </button>
+
+              <!--<button class="btn btn-default round-corner" type="button" id="dropdownMenu67" style="text-align:center;" (click)="toggleProduct()">
+                <span style="display:inline-block;" *ngIf="showProduct">Hide Product</span>
+                <span style="display:inline-block" *ngIf="!showProduct">Show Product</span>
+              </button>-->
+            </div>
+          </div><!--col-md-2-->
+         </div>
+      </form><!--end form-->
+
+    </div>
+  </div>
+
+</div>
+
+
+
+<!--Data display occurs here-->
+<div>
+    <div *ngIf="controllerVar && reportTypeControllerVar === 'brand'">     
+             <app-brandsummary [brandSummary] = 'brandProducts' 
+             [message]= 'messageToDisplay'  [limit] ="limit"></app-brandsummary>
+    </div><!--BRAND REPORT-->
+
+
+    <div *ngIf="controllerVar && reportTypeControllerVar === 'vendor-payments'">     
+             <app-vendorpayment [paymentSummary] = 'vendorPayments' [message]= 'messageToDisplay' [limit] ="limit"></app-vendorpayment>
+    </div><!--PAYMENT REPORT-->
+
+    <div *ngIf="controllerVar && reportTypeControllerVar === 'vendor-performance'">     
+             <app-vendorperformance [performanceSummary] = 'vendorPerformance' [message]= 'messageToDisplay'  [limit] ="limit"></app-vendorperformance>
+    </div><!--PERFORMANCE REPORT-->
+
+    <div *ngIf="controllerVar && reportTypeControllerVar === 'purchase order'">     
+      <app-purchase-order [purchaseOrderSummary] = 'purchaseOrderResultSet' [message]= 'messageToDisplay'  [limit] ="limit"></app-purchase-order>
+    </div><!--PURCHASE-ORDER REPORT-->
+
+    <div *ngIf="controllerVar && reportTypeControllerVar === 'vendors'">     
+        <app-suppliers [suppliersSummary] = 'vendorsResultSet' [message]= 'messageToDisplay'  [limit] ="limit"></app-suppliers>
+    </div><!--SUPPLIERS REPORT-->
+
+    <div *ngIf="controllerVar && reportTypeControllerVar === 'item'">     
+        <app-items [itemsSummary] = ' itemResultSet' [message]= 'messageToDisplay'  [limit] ="limit"></app-items>
+    </div><!--ITEMS REPORT-->
+
+    <div *ngIf="controllerVar && reportTypeControllerVar === 'item category'">     
+      <app-category [categorySummary] = ' categoryResultSet' [message]= 'messageToDisplay'  [limit] ="limit"></app-category>
+  </div><!--CATEGORY REPORT-->
+   
+</div>
+      <!-- /#DYNAMIC SECTION -->
+
+    </div>
+    <!-- /.container-fluid -->
+    <footer class="footer text-center"> 2017 &copy; S3 Reports </footer>
+  </div>
+  <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->

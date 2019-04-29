@@ -1,0 +1,37 @@
+<div *ngIf = "inventoryListingSummary && inventoryListingSummary.length > 0">
+    <div *ngIf = "byItem">
+      <div class="white-box">
+        <div class="table-responsive">
+        <h3 style="text-align: center;font-weight: bold">INVENTORY LISTING REPORT</h3>
+            <table *ngFor = "let list of inventoryListingSummary" id="inventoryListingDatatable" class="table display" 
+             cellspacing="0" width="100%">
+                <thead>
+                     <tr>
+                        <th style="width:40%"><b>Item Name</b></th>
+                        <th style="width:15%"><b>Purchase Order No</b></th>
+                        <th style="width:15%"><b>Stock Batch No</b></th>                  
+                        <th style="width:15%"><b>Serial No</b></th>
+                        <th style="width:15%"><b>Barcode</b></th>
+                      </tr>
+                </thead>
+                <tbody>
+                      <tr *ngFor = "let details of list.reportPull.reportDetails" class="rowStripped">                               
+                        <td style="width:40%">{{details.itemName}}</td>
+                        <td style="width:15%">{{details.purchaseOrderNumber}}</td>
+                        <td style="width:15%">{{details.stockBatchNumber}}</td>
+                        <td style="width:15%">{{details.serialNumber}}</td>
+                        <td style="width:15%">{{details.barcodeNumber}}</td>
+                      </tr>
+                </tbody>
+          </table> 
+        </div><!--end table responsive-->
+      </div><!--end whitebox-->
+    </div>  <!--end byItem -->
+</div>
+ <!--END INVENTORY LISTING REPORT by ITEM -->
+
+
+
+<div *ngIf = "inventoryListingSummary && isEmptyObject(inventoryListingSummary)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>

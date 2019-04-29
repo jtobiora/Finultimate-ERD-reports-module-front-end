@@ -1,0 +1,102 @@
+<!-- <div *ngIf = "suppliersSummary && suppliersSummary.length > 0">
+        <div class="white-box">
+         <div class="table-responsive">
+             <h3 style="text-align: center;font-weight: bold">Suppliers Report</h3>
+             <h5 style="text-align: center;font-weight: bold">Period Covered: &nbsp; {{message}}</h5>
+               <table id="suppliersDatatable" class="table display" 
+                  cellspacing="0" width="100%">
+                   <thead>
+                         <tr>
+                             <td><b>Supplier Name</b></td>
+                             <td style="text-align: center"><b>&nbsp;&nbsp;Product / Item Summary</b></td>                      
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr *ngFor = "let list of suppliersSummary" class="rowStripped">
+                             <td style="font-weight: 800;">{{list.supplier.supplier_Name}}</td>
+                             <td>
+                                 <table  style="width:100%">
+                                         <thead>
+                                             <tr>
+                                                 <th></th>
+                                             </tr>
+                                        </thead>
+                                         <tbody>
+                                              <tr *ngFor = "let item of list.report.reports; let k = index">
+                                                   <td>
+                                                       <table style="width:100%">
+                                                     <thead>
+                                                         <tr>
+                                                              <th style="color:#98ACB5"><strong>Purchase Order No &nbsp;&nbsp; -</strong> &nbsp;&nbsp;<em>{{item['purchaseOrderCode']}}</em></th>
+                                                         </tr>
+                                                         <tr>
+                                                             <th><strong>Item Name</strong></th>
+                                                             <th><strong>Qty Ordered</strong></th>
+                                                             <th><strong>Qty Supplied</strong></th>
+                                                             <th><strong>Total Amount</strong></th>
+                                                             <th><strong>Delivery Status</strong></th>
+                                                         </tr>
+                                                     </thead>
+                                                     <tbody>
+                                                          <tr>&nbsp;</tr>
+                                                          <tr *ngFor = "let details of item.itemDetailsReport; let k = index">
+                                                             <td>{{details.itemName}}</td>
+                                                             <td>{{details.quantityOrdered}}</td>
+                                                             <td>{{details.quantityDelivered}}</td>
+                                                             <td>&#x20A6;{{details.itemPrice | number : '1.2-2'}}</td>
+                                                             <td>{{details.deliveryStatus}}</td>
+                                                          </tr>
+                                                     </tbody>
+                                                 </table>   
+                                                   </td>
+                                             </tr>
+                                     </tbody>
+                                 </table>
+                             </td>
+                         </tr>
+                     </tbody>
+             </table> 
+         </div>
+     </div>
+</div> -->
+
+
+<div *ngIf = "suppliersSummary && suppliersSummary.length > 0">
+        <div class="white-box">
+                <div class="table-responsive">
+                        <h3 style="text-align: center;font-weight: bold">Suppliers Report</h3>
+                        <h5 style="text-align: center;font-weight: bold">Period Covered: &nbsp; {{message}}</h5>
+                        <table *ngFor = "let summary of suppliersSummary" id="suppliersDatatable" 
+                            class="table display" cellspacing="0" width="200%">
+                             
+                            <thead>
+                                <tr>
+                                    <th><b>Supplier Name</b></th>
+                                    <th><b>Purchase Order No</b></th>
+                                    <th><b>Item Desc</b></th>                  
+                                    <th><b>Qty Ordered</b></th>
+                                    <th><b>Qty Supplied</b></th>
+                                    <th><b>Order Initiator</b></th>
+                                    <th><b>Status</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor = "let details of summary.reportHolder" class="rowStripped"> 
+                                    <td style='font-weight:500;'>{{details.supplierName}}</td>
+                                    <td>{{details.purchaseOrderNo}}</td>
+                                    <td>{{details.itemDescription}}</td>
+                                    <td>{{details.quantityOrdered}}</td>
+                                    <td>{{details.quantityDelivered}}</td>
+                                    <td>{{details.orderInitiator}}</td>
+                                    <td>{{details.status}}</td>
+                                </tr>
+                            </tbody>
+                        </table><!-- end table -->
+                </div><!-- end table responsive -->
+        </div><!-- end white box -->
+</div>
+
+
+<div *ngIf = "suppliersSummary && isEmptyObject(suppliersSummary)">
+        <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p>  
+</div>

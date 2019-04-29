@@ -1,0 +1,46 @@
+
+<div *ngIf = "paymentSummary && paymentSummary.length > 0">
+   <div class="white-box">
+    <div class="table-responsive">
+        <h3 style="text-align: center;font-weight: bold">Vendors Report By Payments</h3>
+        <h5 style="text-align: center;font-weight: bold">Period Covered: &nbsp; {{message}}</h5>
+          <table id="paymentDatatable" class="table display" 
+             cellspacing="0" width="100%">
+              <thead>
+                    <tr>
+                        <td><b>Vendor Name</b></td>
+                        <td style="text-align:center;"><b>Payment Summary</b></td>
+                    </tr>
+              </thead>
+               <tbody>
+                    <tr *ngFor = "let list of paymentSummary" class="rowStripped">
+                        <td style="font-weight: 800;">{{list.supplier.supplier_Name}}</td>
+                        <td>
+                            <table  style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Purchase Order No</th>
+                                        <th>Date of Order</th>                  
+                                        <th>Amount Paid</th>
+                                        <th>Balance Left</th>
+                                       <!-- <th style="color: #0c0c0c;">Brand Supplied</th>-->
+                                    </tr>
+                                </thead>
+                                <tr *ngFor = "let item of getPaymentReportList(list); let k = index">
+                                      <td>{{item['purchaseOrderCode']}}</td> 
+                                      <td>{{item['dateOfEntry'] | date }}</td>                                   
+                                      <td>&#x20A6;{{item['amountExecuted']  | number : '1.2-2'}}</td> 
+                                      <td>&#x20A6;{{item['balanceRemaining'] | number : '1.2-2'}}</td> 
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+        </table> 
+    </div><!--end table responsive-->
+</div><!--end whitebox-->
+</div>
+
+<div *ngIf = "paymentSummary && isEmptyObject(paymentSummary)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>

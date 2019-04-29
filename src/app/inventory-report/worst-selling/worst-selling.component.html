@@ -1,0 +1,106 @@
+<div *ngIf = "worstSellingListSummary && worstSellingListSummary.length > 0">
+    <div *ngIf = "byItem">
+      <div class="white-box">
+        <div class="table-responsive">
+        <h3 style="text-align: center;font-weight: bold">REPORT OF WORST SELLING ITEMS</h3>
+        <h5 style="text-align: center;font-weight: bold">Worst Selling Items From: &nbsp; {{fromMsg}} &nbsp; to &nbsp; {{toMsg}}</h5>
+          <table *ngFor = "let list of worstSellingListSummary" id="worstSellingDatatable" class="table display" 
+             cellspacing="0" width="100%">
+                <thead>
+                     <tr>
+                        <th style="width:40%"><b>Item Name</b></th>
+                        <th style="width:30%"><b>Quantity Sold</b></th>                  
+                        <th style="width:30%"><b>Total Amount Earned</b></th>
+                      </tr>
+                </thead>
+                <tbody>
+                      <tr *ngFor = "let details of list.reportPull.reportDetails" class="rowStripped">                            
+                        <td style="width:40%">{{details.itemName}}</td>
+                        <td style="width:30%">{{details.totalQtySold}}</td>
+                        <td style="width:30%">&#x20A6; &nbsp;{{details.revenueEarned}}</td>
+                      </tr>
+                </tbody>
+          </table> 
+        </div><!--end table responsive-->
+      </div><!--end whitebox-->
+    </div>  <!--end byItem -->
+</div>
+
+<!--START INVENTORY WORST-SELLING-REPORT by BRAND -->
+<div *ngIf = "worstSellingListSummaryByBrand && worstSellingListSummaryByBrand.length > 0">
+    <div *ngIf = "byItem">
+      <div class="white-box">
+        <div class="table-responsive">
+        <h3 style="text-align: center;font-weight: bold">REPORT OF WORST SELLING ITEMS</h3>
+        <h5 style="text-align: center;font-weight: bold">Worst Selling Items From: &nbsp; {{fromMsg}} &nbsp; to &nbsp; {{toMsg}}</h5>
+          <table *ngFor = "let list of worstSellingListSummaryByBrand" id="worstSellingDatatable" class="table display" 
+             cellspacing="0" width="100%">
+                <thead>
+                     <tr>
+                        <th style="width:10%"><b>Brand</b></th>
+                        <th style="width:40%"><b>Item Name</b></th>
+                        <th style="width:25%"><b>Quantity Sold</b></th>                  
+                        <th style="width:25%"><b>Total Amount Earned</b></th>
+                      </tr>
+                </thead>
+                <tbody>
+                      <tr *ngFor = "let details of list.reportPull.reportDetails" class="rowStripped">    
+                        <td style="width:10%;font-weight:500;">{{details.brandType}}</td>                            
+                        <td style="width:40%">{{details.itemName}}</td>
+                        <td style="width:25%">{{details.totalQtySold}}</td>
+                        <td style="width:25%">&#x20A6; &nbsp;{{details.revenueEarned}}</td>
+                      </tr>
+                </tbody>
+          </table> 
+        </div><!--end table responsive-->
+      </div><!--end whitebox-->
+    </div>  <!--end byItem -->
+</div>
+<!--END INVENTORY WORST-SELLING-REPORT by BRAND -->
+
+
+<!--START INVENTORY WORST-SELLING-REPORT by WAREHOUSE -->
+<div *ngIf = "worstSellingListSummaryByWarehouse && worstSellingListSummaryByWarehouse.length > 0">
+    <div *ngIf = "byItem">
+      <div class="white-box">
+        <div class="table-responsive">
+        <h3 style="text-align: center;font-weight: bold">REPORT OF WORST SELLING ITEMS</h3>
+        <h5 style="text-align: center;font-weight: bold">Worst Selling Items From: &nbsp; {{fromMsg}} &nbsp; to &nbsp; {{toMsg}}</h5>
+          <table *ngFor = "let list of worstSellingListSummaryByWarehouse" id="worstSellingDatatable" class="table display nowrap" 
+             cellspacing="0" width="100%">
+                <thead>
+                     <tr>
+                        <th style="width:10%"><b>Warehouse</b></th>
+                        <th style="width:40%"><b>Item Name</b></th>
+                        <th style="width:25%"><b>Quantity Sold</b></th>                  
+                        <th style="width:25%"><b>Total Amount Earned</b></th>
+                      </tr>
+                </thead>
+                <tbody>
+                      <tr *ngFor = "let details of list.reportPull.reportDetails" class="rowStripped">    
+                        <td style="width:10%;font-weight:500;">{{details.warehouse}}</td>                            
+                        <td style="width:40%">{{details.itemName}}</td>
+                        <td style="width:25%">{{details.totalQtySold}}</td>
+                        <td style="width:25%">&#x20A6; &nbsp;{{details.revenueEarned}}</td>
+                      </tr>
+                </tbody>
+          </table> 
+        </div><!--end table responsive-->
+      </div><!--end whitebox-->
+    </div>  <!--end byItem -->
+</div>
+<!--END INVENTORY WORST-SELLING-REPORT by WAREHOUSE -->
+
+
+
+<div *ngIf = "worstSellingListSummary && isEmptyObject(worstSellingListSummary)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>
+
+<div *ngIf = "worstSellingListSummaryByBrand && isEmptyObject(worstSellingListSummaryByBrand)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>
+
+<div *ngIf = "worstSellingListSummaryByWarehouse && isEmptyObject(worstSellingListSummaryByWarehouse)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>

@@ -1,0 +1,106 @@
+<!--START INVENTORY STOCK-MOVEMENT-REPORT by ITEM -->
+<div *ngIf = "stockMovementSummary && stockMovementSummary.length > 0">
+    <div *ngIf = "byItem">
+        <div class="white-box">
+            <div class="table-responsive">
+                <h3 style="text-align: center;font-weight: bold">STOCK MOVEMENT REPORT</h3>
+                <h5 style="text-align: center;font-weight: bold">Period Covered: &nbsp; {{fromMsg}} &nbsp; to &nbsp; {{toMsg}}</h5>
+             
+             <table  id="stockMovtDatatable" class="table display" 
+             cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th><b>ITEM NAME</b></th>
+                    <th style="text-align:center"><b>TRANSFER SUMMARY</b></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor = "let list of stockMovementSummary" class="rowStripped">
+                         <td style="font-weight: 600;">{{list.itemName}}</td>
+                         <td>
+                             <table  style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="width:33%">Transfer Date</th>
+                                        <th style="width:33%">Quantity Transfered</th>                  
+                                        <th style="width:33%">Warehouse sent To</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor = "let item of list.transferDetails; let k = index">
+                                      <td style="width:33%">{{item['transferDate'] | date}}</td> 
+                                      <td style="width:33%">{{item['quantitySent']}}</td>                                   
+                                      <td style="width:33%">{{item['warehouseName']}}</td> 
+                                    </tr>
+                                </tbody>
+                             </table>
+                         </td>
+                    </tr>
+              </tbody>
+             </table>
+            </div><!--end table responsive-->
+        </div><!--end white box-->
+    </div><!--end by item--> 
+</div>
+<!--END INVENTORY STOCK-MOVEMENT-REPORT by ITEM -->
+
+
+<!--START INVENTORY STOCK-MOVEMENT-REPORT by BRAND -->
+<div *ngIf = "stockMovementSummaryByBrand && stockMovementSummaryByBrand.length > 0">
+    <div *ngIf = "byItem">
+        <div class="white-box">
+            <div class="table-responsive">
+                <h3 style="text-align: center;font-weight: bold">STOCK MOVEMENT REPORT</h3>
+                <h5 style="text-align: center;font-weight: bold">Period Covered: &nbsp; {{fromMsg}} &nbsp; to &nbsp; {{toMsg}}</h5>
+             
+             <table  id="stockMovtDatatable" class="table display" 
+             cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th><b>ITEM NAME</b></th>
+                    <th style="text-align:center"><b>TRANSFER SUMMARY</b></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor = "let list of stockMovementSummaryByBrand" class="rowStripped">
+                         <td style="font-weight: 600;">{{list.itemName}}</td>
+                         <td>
+                             <table  style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10%">Brand</th>
+                                        <th style="width:30%">Transfer Date</th>
+                                        <th style="width:20%">Quantity Transfered</th>                  
+                                        <th style="width:40%">Warehouse sent To</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor = "let item of list.transferDetails; let k = index">
+                                      <td style="width:10%;font-weight:500;">{{item['brandName']}}</td>
+                                      <td style="width:30%">{{item['transferDate'] | date}}</td> 
+                                      <td style="width:20%">{{item['quantitySent']}}</td>                                   
+                                      <td style="width:40%">{{item['warehouseName']}}</td> 
+                                    </tr>
+                                </tbody>
+                             </table>
+                         </td>
+                    </tr>
+              </tbody>
+             </table>
+            </div><!--end table responsive-->
+        </div><!--end white box-->
+    </div><!--end by item--> 
+</div>
+<!--END INVENTORY STOCK-MOVEMENT-REPORT by BRAND -->
+
+
+
+<div *ngIf = "stockMovementSummary && isEmptyObject(stockMovementSummary)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>
+
+<div *ngIf = "stockMovementSummaryByBrand && isEmptyObject(stockMovementSummaryByBrand)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>

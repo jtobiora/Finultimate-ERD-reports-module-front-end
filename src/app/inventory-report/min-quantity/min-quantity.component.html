@@ -1,0 +1,118 @@
+<div *ngIf = "minQtySummary && minQtySummary.length > 0">
+    <div *ngIf = "byItem">
+      <div class="white-box">
+        <div class="table-responsive">
+        <h3 style="text-align: center;font-weight: bold">INVENTORY REORDER LEVEL REPORT</h3>
+          <table *ngFor = "let list of minQtySummary" id="minQtyDatatable" class="table display" 
+             cellspacing="0" width="100%">
+                <thead>
+                     <tr>
+                        <th style="width:40%"><b>Item Name</b></th>
+                        <th style="width:15%"><b>Stock Batch No</b></th>                  
+                        <th style="width:15%"><b>Purchase Order No</b></th>
+                        <th style="width:15%"><b>Qty Left</b></th>
+                        <th style="width:15%"><b>Reorder Level</b></th>
+                      </tr>
+                </thead>
+                <tbody>
+                      <tr *ngFor = "let details of list.reportPull.reportDetails" class="rowStripped">                            
+                        <td style="width:40%">{{details.itemName}}</td>
+                        <td style="width:15%">{{details.stockBatchNumber}}</td>
+                        <td style="width:15%">{{details.purchaseOrderNumber}}</td>
+                        <td style="width:15%;text-align:center;">{{details.stockLeft}}</td>
+                        <td style="width:15%;text-align:center;">{{details.reorderLevel}}</td>
+                      </tr>
+                </tbody>
+
+          </table> 
+        </div><!--end table responsive-->
+      </div><!--end whitebox-->
+    </div>  <!--end byItem -->
+</div>
+
+
+<!--START INVENTORY MIN-QTY-REPORT by BRAND -->
+<div *ngIf = "minQtyByBrand && minQtyByBrand.length > 0">
+    <div *ngIf = "byItem">
+      <div class="white-box">
+        <div class="table-responsive">
+        <h3 style="text-align: center;font-weight: bold">INVENTORY REORDER LEVEL REPORT</h3>
+          <table *ngFor = "let list of minQtyByBrand" id="minQtyDatatable" class="table display" 
+             cellspacing="0" width="100%">
+                <thead>
+                     <tr>
+                        <th style="width:10%"><b>Brand</b></th>
+                        <th style="width:30%"><b>Item Name</b></th>
+                        <th style="width:15%"><b>Stock Batch No</b></th>                  
+                        <th style="width:15%"><b>Purchase Order No</b></th>
+                        <th style="width:15%"><b>Qty Left</b></th>
+                        <th style="width:15%"><b>Reorder Level</b></th>
+                      </tr>
+                </thead>
+                <tbody>
+                      <tr *ngFor = "let details of list.reportPull.reportDetails" class="rowStripped">    
+                        <td style="width:10%">{{details.brandType}}</td>                            
+                        <td style="width:30%">{{details.itemName}}</td>
+                        <td style="width:15%">{{details.stockBatchNumber}}</td>
+                        <td style="width:15%">{{details.purchaseOrderNumber}}</td>
+                        <td style="width:15%;text-align:center;">{{details.stockLeft}}</td>
+                        <td style="width:15%;text-align:center;">{{details.reorderLevel}}</td>
+                      </tr>
+                </tbody>
+
+          </table> 
+        </div><!--end table responsive-->
+      </div><!--end whitebox-->
+    </div>  <!--end byItem -->
+</div>
+
+<!--END INVENTORY MIN-QTY-REPORT by BRAND -->
+
+<!--START INVENTORY MIN-QTY-REPORT by WAREHOUSE -->
+<div *ngIf = "minQtyByWarehouse && minQtyByWarehouse.length > 0">
+    <div *ngIf = "byItem">
+      <div class="white-box">
+        <div class="table-responsive">
+        <h3 style="text-align: center;font-weight: bold">INVENTORY REORDER LEVEL REPORT</h3>
+          <table *ngFor = "let list of minQtyByWarehouse" id="minQtyDatatable" class="table display" 
+             cellspacing="0" width="100%">
+                <thead>
+                     <tr>
+                        <th style="width:10%"><b>Warehouse</b></th>
+                        <th style="width:30%"><b>Item Name</b></th>
+                        <th style="width:15%"><b>Stock Batch No</b></th>                  
+                        <th style="width:15%"><b>Purchase Order No</b></th>
+                        <th style="width:15%"><b>Qty Left</b></th>
+                        <th style="width:15%"><b>Reorder Level</b></th>
+                      </tr>
+                </thead>
+                <tbody>
+                      <tr *ngFor = "let details of list.reportPull.reportDetails" class="rowStripped">    
+                        <td style="width:10%">{{details.warehouse}}</td>                            
+                        <td style="width:30%">{{details.itemName}}</td>
+                        <td style="width:15%">{{details.stockBatchNumber}}</td>
+                        <td style="width:15%">{{details.purchaseOrderNumber}}</td>
+                        <td style="width:15%;text-align:center;">{{details.stockLeft}}</td>
+                        <td style="width:15%;text-align:center;">{{details.reorderLevel}}</td>
+                      </tr>
+                </tbody>
+
+          </table> 
+        </div><!--end table responsive-->
+      </div><!--end whitebox-->
+    </div>  <!--end byItem -->
+</div>
+<!--END INVENTORY EXPIRY-LIST-REPORT by WAREHOUSE -->
+
+
+<div *ngIf = "minQtySummary && isEmptyObject(minQtySummary)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>
+
+<div *ngIf = "minQtyByBrand && isEmptyObject(minQtyByBrand)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>
+
+<div *ngIf = "minQtyByWarehouse && isEmptyObject(minQtyByWarehouse)">
+     <p style="font-weight:bold; font-size: 16px;"><strong>No report was found.</strong></p> 
+</div>
